@@ -12,7 +12,7 @@ namespace CSharp.Course.Web.Controllers
 {
     public class LeaderboardController : ApiController
     {
-        [HttpPost]
+        [HttpPost, Route("api/leaderboard")]
         public async Task<BoardEntryDto> Post(BoardEntryDto boardEntryDto)
         {
             if (!ModelState.IsValid)
