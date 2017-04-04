@@ -2,6 +2,7 @@
 using CSharp.Course.Web.Models.Dto;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -51,6 +52,37 @@ namespace CSharp.Course.Web.Controllers
                     Skipped = result.Skipped,
                     Username = result.Username
                 };
+            }
+        }
+
+
+        [HttpGet, Route("api/leaderboard")]
+        public async Task<IEnumerable<BoardEntryDto>> Get(int page = 1, int pageSize = 100)
+        {
+            if (page < 1 || pageSize > 1000 || pageSize < 1)
+            {
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    ReasonPhrase = "Invalid pagination",
+                    StatusCode = HttpStatusCode.BadRequest
+                });
+            }
+
+            using (var dbContext = new LeaderboardContext())
+            {
+                var boardEntries = from entry in dbContext.Leaderboard.
+                                        OrderBy(eb => eb.Passed).ThenBy(eb => eb.Username).
+                                        Skip((page - 1) * pageSize).Take(pageSize)
+                                   select new BoardEntryDto
+                                   {
+                                       Id = entry.Id,
+                                       Failed = entry.Failed,
+                                       Passed = entry.Passed,
+                                       Skipped = entry.Skipped,
+                                       Username = entry.Username
+                                   };
+
+                return await boardEntries.ToListAsync();
             }
         }
     }
