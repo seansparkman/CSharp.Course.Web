@@ -16,19 +16,15 @@ namespace CSharp.Course.Web.Hubs
         {
             using (var dbContext = new LeaderboardContext())
             {
-                var boardEntries = from entry in dbContext.Leaderboard.
-                                        OrderBy(eb => eb.Passed).ThenBy(eb => eb.Username).
-                                        Take(10)
-                                   select new BoardEntryDto
-                                   {
-                                       Id = entry.Id,
-                                       Failed = entry.Failed,
-                                       Passed = entry.Passed,
-                                       Skipped = entry.Skipped,
-                                       Username = entry.Username
-                                   };
-
-                return await boardEntries.ToListAsync();
+                return await dbContext.TopTenEntries.Select(entry => new BoardEntryDto
+                {
+                    Id = entry.Id,
+                    Failed = entry.Failed,
+                    Passed = entry.Passed,
+                    Skipped = entry.Skipped,
+                    Username = entry.Username,
+                    Submitted = entry.Submitted
+                }).ToListAsync();
             }
         }
     }

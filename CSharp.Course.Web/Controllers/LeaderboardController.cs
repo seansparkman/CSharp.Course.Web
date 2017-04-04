@@ -47,22 +47,18 @@ namespace CSharp.Course.Web.Controllers
                 var result = dbContext.Leaderboard.Add(boardEntry);
                 await dbContext.SaveChangesAsync();
 
-                if (dbContext.Leaderboard.OrderBy(eb => eb.Passed).ThenBy(eb => eb.Username).Any(be => be.Id == result.Id))
+                if (dbContext.TopTenEntries.Any(be => be.Id == result.Id))
                 {
-                    var boardEntries = from entry in dbContext.Leaderboard.
-                                            OrderBy(eb => eb.Passed).ThenBy(eb => eb.Username).
-                                            Take(10)
-                                       select new BoardEntryDto
-                                       {
-                                           Id = entry.Id,
-                                           Failed = entry.Failed,
-                                           Passed = entry.Passed,
-                                           Skipped = entry.Skipped,
-                                           Username = entry.Username
-                                       };
-
                     var clients = GlobalHost.ConnectionManager.GetHubContext<LeaderboardHub>().Clients;
-                    clients.All.leaderboardUpdate(boardEntries.ToListAsync());
+                    clients.All.leaderboardUpdate(await dbContext.TopTenEntries.Select(entry => new BoardEntryDto
+                    {
+                        Id = entry.Id,
+                        Failed = entry.Failed,
+                        Passed = entry.Passed,
+                        Skipped = entry.Skipped,
+                        Username = entry.Username,
+                        Submitted = entry.Submitted
+                    }).ToListAsync());
                 }
 
                 return new BoardEntryDto
@@ -71,7 +67,8 @@ namespace CSharp.Course.Web.Controllers
                     Id = result.Id,
                     Passed = result.Passed,
                     Skipped = result.Skipped,
-                    Username = result.Username
+                    Username = result.Username,
+                    Submitted = result.Submitted
                 };
             }
         }
@@ -91,19 +88,15 @@ namespace CSharp.Course.Web.Controllers
 
             using (var dbContext = new LeaderboardContext())
             {
-                var boardEntries = from entry in dbContext.Leaderboard.
-                                        OrderBy(eb => eb.Passed).ThenBy(eb => eb.Username).
-                                        Skip((page - 1) * pageSize).Take(pageSize)
-                                   select new BoardEntryDto
-                                   {
-                                       Id = entry.Id,
-                                       Failed = entry.Failed,
-                                       Passed = entry.Passed,
-                                       Skipped = entry.Skipped,
-                                       Username = entry.Username
-                                   };
-
-                return await boardEntries.ToListAsync();
+                return await dbContext.TopTenEntries.Select(entry => new BoardEntryDto
+                {
+                    Id = entry.Id,
+                    Failed = entry.Failed,
+                    Passed = entry.Passed,
+                    Skipped = entry.Skipped,
+                    Username = entry.Username,
+                    Submitted = entry.Submitted
+                }).ToListAsync();
             }
         }
     }
