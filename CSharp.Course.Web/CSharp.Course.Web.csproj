@@ -205,6 +205,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\LeaderboardHub.cs" />
     <Compile Include="Migrations\201704041743558_Leaderboard.cs" />
     <Compile Include="Migrations\201704041743558_Leaderboard.Designer.cs">
       <DependentUpon>201704041743558_Leaderboard.cs</DependentUpon>
