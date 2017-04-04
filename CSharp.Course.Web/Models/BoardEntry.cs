@@ -14,5 +14,6 @@ namespace CSharp.Course.Web.Models
         public int Passed { get; set; }
         public int Failed { get; set; }
         public int Skipped { get; set; }
+        public DateTime? Submitted { get; set; }
     }
 }

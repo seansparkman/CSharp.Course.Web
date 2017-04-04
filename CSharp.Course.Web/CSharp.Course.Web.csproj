@@ -210,6 +210,10 @@
     <Compile Include="Migrations\201704041743558_Leaderboard.Designer.cs">
       <DependentUpon>201704041743558_Leaderboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704042107472_SubmissionDateTime.cs" />
+    <Compile Include="Migrations\201704042107472_SubmissionDateTime.Designer.cs">
+      <DependentUpon>201704042107472_SubmissionDateTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BoardEntry.cs" />
     <Compile Include="Models\Dto\BoardEntryDto.cs" />
@@ -294,6 +298,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201704041743558_Leaderboard.resx">
       <DependentUpon>201704041743558_Leaderboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704042107472_SubmissionDateTime.resx">
+      <DependentUpon>201704042107472_SubmissionDateTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -14,5 +14,6 @@ namespace CSharp.Course.Web.Models.Dto
         public int Failed { get; set; }
         [Required, Min(0)]
         public int Skipped { get; set; }
+        public DateTime? Submitted { get; set; }
     }
 }
