@@ -29,7 +29,7 @@ namespace CSharp.Course.Web.Models.Dto
             {
                 var number = (int)value;
 
-                return number < Min;
+                return number >= Min;
             }
 
             return false;

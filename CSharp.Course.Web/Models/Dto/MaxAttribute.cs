@@ -29,7 +29,7 @@ namespace CSharp.Course.Web.Models.Dto
             {
                 var number = (int)value;
 
-                return number < Max;
+                return number <= Max;
             }
 
             return false;
