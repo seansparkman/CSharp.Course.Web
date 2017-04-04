@@ -12,6 +12,6 @@ namespace CSharp.Course.Web.Models
         {
         }
 
-        DbSet<BoardEntry> Leaderboard { get; set; }
+        public DbSet<BoardEntry> Leaderboard { get; set; }
     }
 }
