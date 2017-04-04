@@ -35,7 +35,8 @@ namespace CSharp.Course.Web.Controllers
                     Failed = boardEntryDto.Failed,
                     Passed = boardEntryDto.Passed,
                     Skipped = boardEntryDto.Skipped,
-                    Username = boardEntryDto.Username
+                    Username = boardEntryDto.Username,
+                    Submitted = DateTime.UtcNow
                 };
 
                 // remove existing entry before adding new one
