@@ -28,6 +28,7 @@ namespace CSharp.Course.Web.Controllers
             {
                 var boardEntry = new BoardEntry
                 {
+                    Id = Guid.NewGuid(),
                     Failed = boardEntryDto.Failed,
                     Passed = boardEntryDto.Passed,
                     Skipped = boardEntryDto.Skipped,
