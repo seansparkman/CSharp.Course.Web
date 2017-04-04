@@ -212,6 +212,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BoardEntry.cs" />
     <Compile Include="Models\Dto\BoardEntryDto.cs" />
+    <Compile Include="Models\Dto\MaxAttribute.cs" />
+    <Compile Include="Models\Dto\MinAttribute.cs" />
     <Compile Include="Models\LeaderboardContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
