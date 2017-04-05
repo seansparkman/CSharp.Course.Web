@@ -17,7 +17,7 @@ namespace CSharp.Course.Web.Models
 
         public IOrderedQueryable<BoardEntry> SortedLeaderboard
         {
-            get { return Leaderboard.OrderBy(be => be.Passed).ThenBy(be => be.Submitted).ThenBy(be => be.Username); }
+            get { return Leaderboard.OrderByDescending(be => be.Passed).ThenBy(be => be.Submitted).ThenBy(be => be.Username); }
         }
 
         public IQueryable<BoardEntry> TopTenEntries
