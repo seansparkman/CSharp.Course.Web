@@ -20,8 +20,8 @@
                     return entityMap[s];
                 }) + '</td>';
                 tableRow += '<td>' + item.Passed + '</td>';
-                tableRow += '<td>' + item.Skipped + '</td>';
                 tableRow += '<td>' + item.Failed + '</td>';
+                tableRow += '<td>' + item.Skipped + '</td>';
             }
 
             tableRow += '</tr>';
