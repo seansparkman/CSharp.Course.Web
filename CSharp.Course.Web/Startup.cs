@@ -12,6 +12,7 @@ namespace CSharp.Course.Web
     {
         public void Configuration(IAppBuilder app)
         {
+            app.MapSignalR();
         }
     }
 }
