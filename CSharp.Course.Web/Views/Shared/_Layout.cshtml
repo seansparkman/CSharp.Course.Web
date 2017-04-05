@@ -36,6 +36,10 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    
+    @Scripts.Render("~/Scripts/jquery.signalR-2.2.1.min.js")
+    @Scripts.Render("~/signalr/hubs")
+    @Scripts.Render("~/Scripts/leaderboard.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>
