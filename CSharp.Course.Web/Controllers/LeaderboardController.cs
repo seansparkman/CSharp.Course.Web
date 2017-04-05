@@ -99,5 +99,26 @@ namespace CSharp.Course.Web.Controllers
                 }).ToListAsync();
             }
         }
+
+        [HttpDelete, Route("api/leaderboard")]
+        public async Task Delete()
+        {
+            using (var dbContext = new LeaderboardContext())
+            {
+                dbContext.Leaderboard.RemoveRange(dbContext.Leaderboard);
+                await dbContext.SaveChangesAsync();
+                
+                var clients = GlobalHost.ConnectionManager.GetHubContext<LeaderboardHub>().Clients;
+                clients.All.leaderboardUpdate(await dbContext.TopTenEntries.Select(entry => new BoardEntryDto
+                {
+                    Id = entry.Id,
+                    Failed = entry.Failed,
+                    Passed = entry.Passed,
+                    Skipped = entry.Skipped,
+                    Username = entry.Username,
+                    Submitted = entry.Submitted
+                }).ToListAsync());
+            }
+        }
     }
 }
